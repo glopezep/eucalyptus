@@ -1,16 +1,53 @@
 {
   "name": "eucalyptus",
-  "version": "0.0.1",
-  "description": "Elegant and Elemental Components for VueJS",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "vuejs",
-    "ui",
-    "components"
+  "version": "1.0.0",
+  "description": "Elegant and elementary components for modern applications based on VueJS",
+  "main": "dist/eucalyptus.umd.js",
+  "module": "dist/eucalyptus.esm.js",
+  "unpkg": "dist/eucalyptus.min.js",
+  "files": [
+    "dist/*",
+    "src/*",
+    "!src/lib-dev.vue"
   ],
-  "author": "Guillermo Lopez",
-  "license": "MIT"
+  "scripts": {
+    "build": "npm run lint && npm run build:unpkg & npm run build:es & npm run build:umd",
+    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/eucalyptus.umd.js",
+    "build:es": "rollup --config build/rollup.config.js --format es --file dist/eucalyptus.esm.js",
+    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/eucalyptus.min.js",
+    "dev": "npm run lint && vue serve ./src/lib-dev.vue",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "lint:fix": "eslint --ext .js,.vue --ignore-path .gitignore . --fix",
+    "precommit": "lint-staged",
+    "postinstall": "npm run build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@vue/cli": "^3.2.1",
+    "@vue/cli-service-global": "^3.2.1",
+    "eslint": "^5.9.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^5.0.0-beta.5",
+    "husky": "^1.2.0",
+    "lint-staged": "^8.1.0",
+    "minimist": "^1.2.0",
+    "prettier": "1.15.2",
+    "prettier-eslint": "^8.8.2",
+    "rollup": "^0.66.2",
+    "rollup-plugin-buble": "^0.19.2",
+    "rollup-plugin-uglify-es": "0.0.1",
+    "rollup-plugin-vue": "^4.3.0",
+    "vue": "^2.5.16",
+    "vue-template-compiler": "^2.5.16"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
 }
